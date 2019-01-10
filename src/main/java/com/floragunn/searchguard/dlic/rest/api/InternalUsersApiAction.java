@@ -80,7 +80,7 @@ public class InternalUsersApiAction extends AbstractApiAction {
 		final String username = request.param("name");
 		
 		if (username == null || username.length() == 0) {
-			return badRequestResponse("No " + getResourceName() + " specified");
+			return badRequestResponse("No " + getResourceName() + " specified.");
 		}
 
 		final Settings configurationSettings = loadAsSettings(getConfigName());
@@ -108,7 +108,7 @@ public class InternalUsersApiAction extends AbstractApiAction {
 		
 		// sanity checks, hash is mandatory for newly created users
 		if(!userExisted && additionalSettingsBuilder.get("hash") == null) {
-			return badRequestResponse("Please specify either 'hash' or 'password' when creating a new internal user");		
+			return badRequestResponse("Please specify either 'hash' or 'password' when creating a new internal user.");		
 		}
 
 		// for existing users, hash is optional
@@ -117,7 +117,7 @@ public class InternalUsersApiAction extends AbstractApiAction {
 			@SuppressWarnings("unchecked")
 			Map<String, String> existingUserSettings = (Map<String, String>)config.get(username);
 			if (!existingUserSettings.containsKey("hash")) {
-				return internalErrorResponse("Existing user " + username+" has no password, and no new password or hash was specified");
+				return internalErrorResponse("Existing user " + username+" has no password, and no new password or hash was specified.");
 			}
 			additionalSettingsBuilder.put("hash", (String) existingUserSettings.get("hash"));
 		}
@@ -130,9 +130,9 @@ public class InternalUsersApiAction extends AbstractApiAction {
 		save(client, request, ConfigConstants.CONFIGNAME_INTERNAL_USERS, Utils.convertStructuredMapToBytes(config));
 
 		if (userExisted) {
-			return successResponse("'" + username + "' updated", ConfigConstants.CONFIGNAME_INTERNAL_USERS);
+			return successResponse("'" + username + "' updated.", ConfigConstants.CONFIGNAME_INTERNAL_USERS);
 		} else {
-			return createdResponse("'" + username + "' created", ConfigConstants.CONFIGNAME_INTERNAL_USERS);
+			return createdResponse("'" + username + "' created.", ConfigConstants.CONFIGNAME_INTERNAL_USERS);
 		}
 
 	}

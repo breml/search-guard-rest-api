@@ -94,12 +94,12 @@ public class FlushCacheApiAction extends AbstractApiAction {
 
 		if (!sem.tryAcquire(30, TimeUnit.SECONDS)) {
 			logger.error("Cannot flush cache due to timeout");
-			return internalErrorResponse("Cannot flush cache due to timeout");
+			return internalErrorResponse("Cannot flush cache due to timeout.");
 		}
 
 		if (exception.size() > 0) {
 			logger.error("Cannot flush cache due to", exception.get(0));
-			return internalErrorResponse("Cannot flush cache due to "+ exception.get(0).getMessage());
+			return internalErrorResponse("Cannot flush cache due to "+ exception.get(0).getMessage()+ ".");
 		}		
 		
 		return successResponse("Cache flushed successfully.", new String[0]);
